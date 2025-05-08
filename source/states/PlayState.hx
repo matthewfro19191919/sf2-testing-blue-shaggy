@@ -155,6 +155,12 @@ class PlayState extends MusicBeatState
 	public var gf:Character = null;
 	public var boyfriend:Character = null;
 
+	public static var overridePlayer1:String = "";
+	public static var overridePlayer2:String = "";
+
+	public static var p1WriteDone:Bool = true;
+	public static var p2WriteDone:Bool = true;
+
 	public var notes:FlxTypedGroup<Note>;
 	public var unspawnNotes:Array<Note> = [];
 	public var eventNotes:Array<EventNote> = [];
@@ -266,8 +272,20 @@ class PlayState extends MusicBeatState
 
 	private static var _lastLoadedModDirectory:String = '';
 	public static var nextReloadAll:Bool = false;
+
+	var musicStream:AudioStreamThing;
+	// var vocals:AudioThing;
+	var dadVoice:AudioStreamThing;
+	var bfVoice:AudioStreamThing;
+	var voices:FlxTypedGroup<AudioStreamThing> = new FlxTypedGroup<AudioStreamThing>();
+
 	override public function create()
 	{
+		if (overridePlayer1 != "")
+			SONG.player1 = overridePlayer1;
+		if (overridePlayer2 != "")
+			SONG.player2 = overridePlayer2;
+
 		//trace('Playback Rate: ' + playbackRate);
 		_lastLoadedModDirectory = Mods.currentModDirectory;
 		Paths.clearStoredMemory();
@@ -568,6 +586,28 @@ class PlayState extends MusicBeatState
 		comboGroup.cameras = [camHUD];
 
 		startingSong = true;
+
+		if (!introOnly)
+		{
+			// while (!FileSystem.exists("assets/temp/dad.wav") && !FileSystem.exists("assets/temp/bf.wav"))
+			while (!p1WriteDone && !p2WriteDone)
+			{
+				Sys.sleep(0.01);
+			}
+
+			dadVoice = new AudioStreamThing("assets/temp/dad.wav", true);
+			bfVoice = new AudioStreamThing("assets/temp/bf.wav", true);
+
+			voices.add(dadVoice);
+			voices.add(bfVoice);
+		}
+		else
+		{
+			dadVoice = new AudioStreamThing("", false);
+			bfVoice = new AudioStreamThing("", false);
+			voices.add(dadVoice);
+			voices.add(bfVoice);
+		}
 
 		#if LUA_ALLOWED
 		for (notetype in noteTypes)
