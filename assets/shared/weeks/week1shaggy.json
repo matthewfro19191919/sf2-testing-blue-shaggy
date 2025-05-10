@@ -1,0 +1,40 @@
+{
+	"storyName": "A forth Shaggy and his blue?!",
+	"difficulties": "easy, canon, hell",
+	"hideFreeplay": false,
+	"weekBackground": "halloween",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"hideStoryMode": false,
+	"songs": [
+		[
+			"Zen",
+			"blue-shaggy",
+			[
+				46,
+				33,
+				253
+			]
+		],
+		[
+			"Demagogue",
+			"blue-shaggy",
+			[
+				46,
+				33,
+				253
+			]
+		]
+	],
+	"weekCharacters": [
+		"shaggy",
+		"bf",
+		"gf"
+	],
+	"weekName": "shaggy1"
+}

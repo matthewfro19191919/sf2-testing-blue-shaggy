@@ -1,0 +1,40 @@
+{
+	"storyName": "A Never Before Seen Power!",
+	"difficulties": "easy, canon, hell",
+	"hideFreeplay": false,
+	"weekBackground": "outside",
+	"weekBefore": "week1",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": false,
+	"hideStoryMode": false,
+	"songs": [
+		[
+			"Surge",
+			"blue-sshaggy",
+			[
+				46,
+				33,
+				253
+			]
+		],
+		[
+			"Spacial-Collapsed",
+			"blue-pshaggy",
+			[
+				26,
+				40,
+				133
+			]
+		]
+	],
+	"weekCharacters": [
+		"pshaggy",
+		"bf",
+		"gf"
+	],
+	"weekName": "Custom Week"
+}
