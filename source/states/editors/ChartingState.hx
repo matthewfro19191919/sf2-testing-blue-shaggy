@@ -97,7 +97,6 @@ enum abstract WaveformTarget(String)
 	var PLAYER = 'voc';
 	var OPPONENT = 'opp';
 }
-using StringTools;
 
 class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychUIEvent
 {
