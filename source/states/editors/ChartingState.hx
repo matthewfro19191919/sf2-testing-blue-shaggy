@@ -22,7 +22,8 @@ import flixel.input.keyboard.FlxKey;
 import openfl.media.SoundChannel;
 import Conductor.BPMChangeEvent;
 import Section.SwagSection;
-import Song.SwagSong;
+import backend.Song.SwagSong;
+import objects.Note;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
@@ -104,12 +105,6 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 
 	var UI_box:FlxUITabMenu;
 
-	/**
-	 * Array of notes showing when each section STARTS in STEPS
-	 * Usually rounded up??
-	 */
-	var curSection:Int = 0;
-
 	var timeOld:Float = 0;
 
 	public static var lastSection:Int = 0;
@@ -135,12 +130,11 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 
 	var highlight:FlxSprite;
 
-	var GRID_SIZE:Int = 40;
+	public static var GRID_SIZE = 40;
 
-	// var TRIPLE_GRID_SIZE:Float = 40 * 4/3;
 	var dummyArrow:FlxSprite;
 
-	var curRenderedNotes:FlxTypedGroup<Note>;
+	var curRenderedNotes:FlxTypedGroup<MetaNote> = new FlxTypedGroup<MetaNote>();
 	var curRenderedSustains:FlxTypedGroup<FlxSprite>;
 
 	var gridBG:FlxSprite;
@@ -158,7 +152,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 
 	var tempBpm:Int = 0;
 
-	var vocals:FlxSound;
+	var vocals:FlxSound = new FlxSound();
 
 	var leftIcon:HealthIcon;
 	var rightIcon:HealthIcon;
@@ -209,7 +203,6 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 	public static var SHOW_EVENT_COLUMN = true;
 	public static var GRID_COLUMNS_PER_PLAYER = 4;
 	public static var GRID_PLAYERS = 2;
-	public static var GRID_SIZE = 40;
 	final BACKUP_EXT = '.bkp';
 
 	public var quantizations:Array<Int> = [
@@ -290,17 +283,14 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 	var notes:Array<MetaNote> = [];
 
 	var behindRenderedNotes:FlxTypedGroup<MetaNote> = new FlxTypedGroup<MetaNote>();
-	var curRenderedNotes:FlxTypedGroup<MetaNote> = new FlxTypedGroup<MetaNote>();
 	var movingNotes:FlxTypedGroup<MetaNote> = new FlxTypedGroup<MetaNote>();
 	var eventLockOverlay:FlxSprite;
 	var vortexIndicator:FlxSprite;
 	var strumLineNotes:FlxTypedGroup<StrumNote> = new FlxTypedGroup<StrumNote>();
-	var dummyArrow:FlxSprite;
 	var isMovingNotes:Bool = false;
 	var movingNotesLastData:Int = 0;
 	var movingNotesLastY:Float = 0;
 	
-	var vocals:FlxSound = new FlxSound();
 	var opponentVocals:FlxSound = new FlxSound();
 
 	var timeLine:FlxSprite;
@@ -3386,27 +3376,6 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		updateHeads();
 	}
 
-	function updateHeads():Void
-	{
-		// leftIcon.animation.play(player2DropDown.selectedLabel);
-		// rightIcon.animation.play(player1DropDown.selectedLabel);
-		leftIcon.changeChar(player2DropDown.selectedLabel);
-		leftIcon.normal();
-		rightIcon.changeChar(player1DropDown.selectedLabel);
-		rightIcon.normal();
-
-		if (_song.notes[curSection].mustHitSection)
-		{
-			leftIconBack.alpha = 0;
-			rightIconBack.alpha = 1;
-		}
-		else
-		{
-			leftIconBack.alpha = 1;
-			rightIconBack.alpha = 0;
-		}
-	}
-
 	function updateNoteUI():Void
 	{
 		for (i in pitchButtons)
@@ -4489,7 +4458,6 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 	var scrollSpeedStepper:PsychUINumericStepper;
 	var audioOffsetStepper:PsychUINumericStepper;
 
-	var stageDropDown:PsychUIDropDownMenu;
 	var playerDropDown:PsychUIDropDownMenu;
 	var opponentDropDown:PsychUIDropDownMenu;
 	var girlfriendDropDown:PsychUIDropDownMenu;
