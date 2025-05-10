@@ -18,6 +18,7 @@ import haxe.io.Bytes;
 import openfl.media.Sound;
 import openfl.utils.ByteArray;
 import states.PlayState;
+import objects.Note;
 
 using StringTools;
 
