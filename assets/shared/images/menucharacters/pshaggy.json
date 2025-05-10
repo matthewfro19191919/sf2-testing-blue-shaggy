@@ -1,0 +1,10 @@
+{
+	"idle_anim": "M PShaggy Idle",
+	"image": "Menu_PShaggy",
+	"position": [
+		-10,
+		20
+	],
+	"scale": 0.9,
+	"confirm_anim": "M Dad Idle"
+}
