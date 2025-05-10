@@ -1,6 +1,6 @@
 package;
 
-import Song.SwagSong;
+import backend.Song.SwagSong;
 
 typedef BPMChangeEvent =
 {
